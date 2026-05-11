@@ -163,23 +163,19 @@ async function kirimReact(){
     }
 
     document.getElementById('status').innerHTML =
-    '⏳ Mengirim request...';
+    '⏳ Mengirim react...';
 
     try{
 
-        const response = await fetch('/api/react',{
-
-            method:'POST',
-
-            headers:{
-                'Content-Type':'application/json'
+        const response = await fetch('/api/react', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-
-            body:JSON.stringify({
-                link:link,
-                emoji:emoji
+            body: JSON.stringify({
+                link: link,
+                emoji: emoji
             })
-
         });
 
         const hasil = await response.json();
@@ -189,12 +185,12 @@ async function kirimReact(){
         if(response.ok){
 
             document.getElementById('status').innerHTML =
-            '✅ API tersambung';
+            '✅ React berhasil dikirim';
 
         }else{
 
             document.getElementById('status').innerHTML =
-            '❌ ' + (hasil.error || 'API gagal');
+            '❌ ' + (hasil.message || 'Gagal kirim react');
 
         }
 
@@ -203,13 +199,13 @@ async function kirimReact(){
         console.log(err);
 
         document.getElementById('status').innerHTML =
-        '❌ Error koneksi API';
+        '❌ Error koneksi';
 
     }
 
 }
 
 </script>
-
+    
 </body>
 </html>
