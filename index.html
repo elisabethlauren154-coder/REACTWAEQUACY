@@ -163,12 +163,24 @@ async function kirimReact(){
     }
 
     document.getElementById('status').innerHTML =
-    '⏳ Mengecek API...';
+    '⏳ Mengirim request...';
 
     try{
 
-        // FETCH KE BACKEND VERCEL
-        const response = await fetch('/api/react');
+        const response = await fetch('/api/react',{
+
+            method:'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            body:JSON.stringify({
+                link:link,
+                emoji:emoji
+            })
+
+        });
 
         const hasil = await response.json();
 
@@ -177,12 +189,12 @@ async function kirimReact(){
         if(response.ok){
 
             document.getElementById('status').innerHTML =
-            '✅ API tersambung | Coins: ' + hasil.coins;
+            '✅ API tersambung';
 
         }else{
 
             document.getElementById('status').innerHTML =
-            '❌ API gagal';
+            '❌ ' + (hasil.error || 'API gagal');
 
         }
 
