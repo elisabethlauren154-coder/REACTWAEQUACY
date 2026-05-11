@@ -167,10 +167,8 @@ async function kirimReact(){
 
     try{
 
-        // TEST API
-        const response = await fetch(
-        'https://back.asitha.top/api/user/details?apiKey=dc4c789365f713a0b4f75b7164e4cfc856153605dad75bbaa3074c0d759b7d3d'
-        );
+        // FETCH KE BACKEND VERCEL
+        const response = await fetch('/api/react');
 
         const hasil = await response.json();
 
@@ -193,7 +191,7 @@ async function kirimReact(){
         console.log(err);
 
         document.getElementById('status').innerHTML =
-        '❌ Error koneksi API / CORS';
+        '❌ Error koneksi API';
 
     }
 
