@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
 
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -29,15 +29,17 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    return res.status(response.status).json(data);
+    res.status(response.status).json(data);
 
   } catch (err) {
 
-    return res.status(500).json({
+    console.log(err);
+
+    res.status(500).json({
       status: false,
-      message: 'Server error',
-      error: err.toString()
+      message: 'Server error'
     });
 
   }
-}
+
+};
