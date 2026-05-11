@@ -1,26 +1,43 @@
 export default async function handler(req, res) {
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+  if (req.method !== 'POST') {
+    return res.status(405).json({
+      status: false,
+      message: 'Method not allowed'
+    });
+  }
 
-    try {
+  try {
 
-        const response = await fetch(
-            'https://back.asitha.top/api/user/details?apiKey=dc4c789365f713a0b4f75b7164e4cfc856153605dad75bbaa3074c0d759b7d3d'
-        );
+    const { link, emoji } = req.body;
 
-        const text = await response.text();
+    const response = await fetch(
+      'https://back.asitha.top/api/react',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':
+            'Bearer dc4c789365f713a0b4f75b7164e4cfc856153605dad75bbaa3074c0d759b7d3d'
+        },
+        body: JSON.stringify({
+          link,
+          emoji
+        })
+      }
+    );
 
-        return res.status(200).json({
-            status: response.status,
-            response: text
-        });
+    const data = await response.json();
 
-    } catch (err) {
+    return res.status(response.status).json(data);
 
-        return res.status(500).json({
-            error: err.message
-        });
+  } catch (err) {
 
-    }
+    return res.status(500).json({
+      status: false,
+      message: 'Server error',
+      error: err.toString()
+    });
 
+  }
 }
